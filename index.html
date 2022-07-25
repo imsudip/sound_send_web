@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <title>ggwave : javascript example</title>
+    <!-- <link href="tailwind.min.css" rel="stylesheet"> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=PT Mono' rel='stylesheet'>
+    <link href='style.css' rel='stylesheet'>
+
+</head>
+
+<body class="lg:px-24 md:px-8 px-2">
+    <header class="text-gray-600 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col flex-row items-center">
+
+            <a
+                class="flex order-first  title-font font-medium items-center text-gray-900 lg:items-center  mb-4 md:mb-0">
+
+                <span class="ml-3 text-xl"
+                    style="font-family: Inconsolata; color: #0429FA; font-weight: bolder; font-size: 52px;">SoundSend.</span>
+            </a>
+
+        </div>
+    </header>
+    <div class="flex flex-wrap">
+        <div class="flex-auto ">
+            <div class="py-8"></div>
+            <!-- FILE PICKER -->
+            <div class="flex justify-center items-center w-full ">
+                <label for="dropzone-file" id="drop-area"
+                    class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer  hover:bg-gray-100  ">
+                    <div class="flex flex-col justify-center items-center pt-5 pb-6">
+                        <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                            </path>
+                        </svg>
+                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to
+                                upload</span> or drag and drop</p>
+                        <p id="info-title" class="text-xs text-gray-500 dark:text-gray-400">Small files upto few MBs</p>
+                        <p id='file-status' class="text-xs text-gray-500 dark:text-gray-400"></p>
+                    </div>
+                    <input id="dropzone-file" type="file" class="hidden" />
+                </label>
+            </div>
+            <div class="py-4"></div>
+            <!-- END FILE PICKER -->
+            <div class="">
+                <div class="flex items-center mb-4">
+                    <input id="ultrasonic" type="checkbox" value=""
+                        class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="ultrasonic" class="ml-2 text-base font-medium text-gray-900 dark:text-gray-300">Use
+                        UltraSonic</label>
+                    <div class="px-12"></div>
+                    <input id="fastmode" type="checkbox" value=""
+                        class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="fastmode" class="ml-2 text-base font-medium text-gray-900 dark:text-gray-300">Use Fast
+                        Mode</label>
+                </div>
+
+
+            </div>
+            <div class="py-4"></div>
+            <!-- Send file button-->
+            <button type="button" id="send-button"
+                class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-base px-5 py-2.5 text-center mr-2 mb-2 w-full">Send
+                Files</button>
+            <!-- Receive File Button -->
+            <button type="button" id="receive-button"
+                class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-base px-5 py-2.5 text-center mr-2 mb-2 w-full">Receive
+                Files</button>
+            <button type="button" id="stop-receive-button" hidden
+                class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 w-full">Stop
+                Capturing</button>
+            <div class="py-4"></div>
+            <div class="flex flex-row justify-center">
+                <div class="flex flex-col flex-initial" id='downloadBox'>
+                    <div style=" font-size: 16px; font-family: Inconsolata ; text-align: center;">Download Files from
+                        here</div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="flex-1 ">
+            <div style="margin-left: 20px; font-size: 32px; font-family: Inconsolata ;">Console</div>
+            <div class="consoleContainer " id="ccn">
+
+                <div id="log"></div>
+            </div>
+        </div>
+
+    </div>
+    <!-- <div id="main-container">
+        Minimal <b>ggwave</b> example using Javascript bindings
+
+        <br><br>
+
+        <div>Tx Data:</div> <textarea name="textarea" id="txData"
+            style="width:300px;height:100px;">Hello javascript</textarea><br>
+
+        <button onclick="onSend();">Send</button>
+
+        <br><br>
+
+        <div>Rx data:</div> <textarea name="textarea" id="rxData" style="width:300px;height:100px;"
+            disabled></textarea><br>
+
+        <!-- <button id="captureStart">Start capturing</button>
+        <button id="captureStop" hidden>Stop capturing</button> -->
+
+    <!-- <br><br>
+
+        <div class="cell-version">
+            <span>
+                |
+                Build time: <span class="nav-link">@GIT_DATE@</span> |
+                Commit hash: <a class="nav-link"
+                    href="https://github.com/ggerganov/ggwave/commit/@GIT_SHA1@">@GIT_SHA1@</a> |
+                Commit subject: <span class="nav-link">@GIT_COMMIT_SUBJECT@</span> |
+                <a class="nav-link" href="https://github.com/ggerganov/ggwave/tree/master/examples/ggwave-js">Source
+                    Code</a> |
+            </span>
+        </div>
+    </div> -->
+    <div id="txData"></div>
+    <div id="rxData"></div>
+    <script src="console_c.js"></script>
+
+    <script type="text/javascript" src="ggwave.js"></script>
+    <script type='text/javascript'>
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        window.OfflineAudioContext = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+
+        var context = null;
+        var recorder = null;
+
+        // the ggwave module instance
+        var ggwave = null;
+        var parameters = null;
+        var instance = null;
+
+        // instantiate the ggwave instance
+        // ggwave_factory comes from the ggwave.js module
+        ggwave_factory().then(function (obj) {
+            ggwave = obj;
+        });
+
+        var txData = document.getElementById("txData");
+        var rxData = document.getElementById("rxData");
+        var captureStart = document.getElementById("receive-button");
+        var captureStop = document.getElementById("stop-receive-button");
+        var isUltraSonic = false;
+        var isFastMode = false;
+        var ultrasonicCheckbox = document.getElementById("ultrasonic");
+        var fastModeCheckbox = document.getElementById("fastmode");
+
+        // event handlers
+        ultrasonicCheckbox.addEventListener("change", function () {
+            isUltraSonic = ultrasonicCheckbox.checked;
+            console.log("UltraSonic: " + isUltraSonic);
+        });
+        fastModeCheckbox.addEventListener("change", function () {
+            isFastMode = fastModeCheckbox.checked;
+            console.log("FastMode: " + isFastMode);
+        });
+
+
+
+        // helper function
+        function convertTypedArray(src, type) {
+            var buffer = new ArrayBuffer(src.byteLength);
+            var baseView = new src.constructor(buffer).set(src);
+            return new type(buffer);
+        }
+
+        // initialize audio context and ggwave
+        function init() {
+            if (!context) {
+                context = new AudioContext({ sampleRate: 48000 });
+
+                parameters = ggwave.getDefaultParameters();
+                parameters.sampleRateInp = context.sampleRate;
+                parameters.sampleRateOut = context.sampleRate;
+                instance = ggwave.init(parameters);
+            }
+        }
+
+        //
+        // Tx
+        //
+
+        function onSend(message) {
+            init();
+
+            // pause audio capture during transmission
+            captureStop.click();
+            var protocol;
+            if (isFastMode) {
+                if (isUltraSonic) {
+                    protocol = ggwave.ProtocolId.GGWAVE_PROTOCOL_ULTRASOUND_FASTEST
+                } else {
+                    protocol = ggwave.ProtocolId.GGWAVE_PROTOCOL_AUDIBLE_FASTEST
+                }
+            } else {
+                if (isUltraSonic) {
+                    protocol = ggwave.ProtocolId.GGWAVE_PROTOCOL_ULTRASOUND_FAST
+                } else {
+                    protocol = ggwave.ProtocolId.GGWAVE_PROTOCOL_AUDIBLE_FAST
+                }
+            }
+            // generate audio waveform
+            var waveform = ggwave.encode(instance, message, protocol, 10)
+
+            // play audio
+            var buf = convertTypedArray(waveform, Float32Array);
+            var buffer = context.createBuffer(1, buf.length, context.sampleRate);
+            buffer.getChannelData(0).set(buf);
+            var source = context.createBufferSource();
+            source.buffer = buffer;
+            source.connect(context.destination);
+            source.start(0);
+        }
+
+        //
+        // Rx
+        //
+
+        captureStart.addEventListener("click", function () {
+            init();
+
+            let constraints = {
+                audio: {
+                    // not sure if these are necessary to have
+                    echoCancellation: false,
+                    autoGainControl: false,
+                    noiseSuppression: false
+                }
+            };
+            console.log("Starting capture....");
+            navigator.mediaDevices.getUserMedia(constraints).then(function (e) {
+                mediaStream = context.createMediaStreamSource(e);
+
+                var bufferSize = 1024;
+                var numberOfInputChannels = 1;
+                var numberOfOutputChannels = 1;
+
+                if (context.createScriptProcessor) {
+                    recorder = context.createScriptProcessor(
+                        bufferSize,
+                        numberOfInputChannels,
+                        numberOfOutputChannels);
+                } else {
+                    recorder = context.createJavaScriptNode(
+                        bufferSize,
+                        numberOfInputChannels,
+                        numberOfOutputChannels);
+                }
+
+                recorder.onaudioprocess = function (e) {
+                    var source = e.inputBuffer;
+                    var res = ggwave.decode(instance, convertTypedArray(new Float32Array(source.getChannelData(0)), Int8Array));
+
+                    if (res && res.length > 0) {
+                        res = new TextDecoder("utf-8").decode(res);
+                        rxData.value = res;
+                        console.log("Data Captured...");
+                        console.log("Decoding Data...");
+                        function getDownloadLink(fid, fileName) {
+                            // https://trixtj.deta.dev/api/v1/getlink
+                            var request = new XMLHttpRequest();
+                            var l = "https://anonfiles.com/" + fid;
+                            request.open("GET", "https://trixtj.deta.dev/api/v1/getlink?link=" + l + "&name=" + fileName);
+                            request.send();
+                            request.onreadystatechange = function () {
+                                if (request.readyState == 4 && request.status == 200) {
+                                    var jsonResponse = JSON.parse(request.responseText);
+                                    console.log("Data processsing complete...");
+                                    var link = jsonResponse["link"]
+                                    console.log("File link: " + link);
+                                    var dBox = document.getElementById("downloadBox");
+                                    // add download button to the box
+                                    var dButton = document.createElement("button");
+                                    // add class to the button
+                                    dButton.className = "flex-shrink text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-1 ";
+                                    // add text to the button
+                                    dButton.innerHTML = "Download - " + fileName;
+                                    // add the button to the box
+                                    dBox.appendChild(dButton);
+                                    // download the file when the button is clicked
+                                    dButton.addEventListener("click", function () {
+                                        window.open(link, "_blank");
+                                    });
+
+                                }
+                                else {
+                                    // console.log(request.status);
+                                }
+                            }
+                        };
+                        var fid = rxData.value.split(",")[0];
+                        var fileName = rxData.value.split(",")[1];
+                        getDownloadLink(fid, fileName);
+                    }
+
+                    // obsolete javascript resampling
+                    // since ggwave v0.2.0 the resampling is built-in ggwave
+                    //var offlineCtx = new OfflineAudioContext(source.numberOfChannels, 48000*source.duration, 48000);
+                    //var offlineSource = offlineCtx.createBufferSource();
+
+                    //offlineSource.buffer = source;
+                    //offlineSource.connect(offlineCtx.destination);
+                    //offlineSource.start();
+                    //offlineCtx.startRendering();
+                    //offlineCtx.oncomplete = function(e) {
+                    //    var resampled = e.renderedBuffer.getChannelData(0);
+                    //    var res = ggwave.decode(instance, convertTypedArray(new Float32Array(resampled), Int8Array));
+                    //    if (res) {
+                    //        rxData.value = res;
+                    //    }
+                    //};
+                }
+
+                mediaStream.connect(recorder);
+                recorder.connect(context.destination);
+            }).catch(function (e) {
+                console.error(e);
+            });
+
+            rxData.value = 'Listening ...';
+            captureStart.hidden = true;
+            captureStop.hidden = false;
+        });
+
+        captureStop.addEventListener("click", function () {
+            if (recorder) {
+                recorder.disconnect(context.destination);
+                mediaStream.disconnect(recorder);
+                recorder = null;
+            }
+            console.log('Audio capture is paused! Press the "Start capturing" button to analyze audio from the microphone');
+            rxData.value = 'Audio capture is paused! Press the "Start capturing" button to analyze audio from the microphone';
+            captureStart.hidden = false;
+            captureStop.hidden = true;
+        });
+
+        captureStop.click();
+    </script>
+    <script src="service.js"></script>
+    <script src="drag_drop.js"></script>
+</body>
+
+</html>

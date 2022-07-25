@@ -1,0 +1,26 @@
+.consoleContainer {
+    background-color: rgb(225, 233, 255);
+    height: 100%;
+    font-family: 'PT Mono';
+    font-size: 12px;
+    padding: 20px 10px;
+    overflow: auto;
+    border: 1px solid rgb(172, 172, 172);
+    border-radius: 14px;
+    margin: 0px 20px;
+    max-width: 320px;
+    min-width: 280px;
+    max-height: calc(100vh - 200px);
+
+}
+
+#downloadBox {
+    border: 1px solid rgb(172, 172, 172);
+    border-radius: 14px;
+    padding: 10px 10px;
+    min-height: 150px;
+}
+
+#drop-area.highlight {
+    border-color: purple;
+}
