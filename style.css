@@ -39,3 +39,25 @@ body {
 button:focus {
     outline: 0;
 }
+
+.infoButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgb(255, 255, 255);
+
+    border-radius: 50px;
+    padding: 10px 10px;
+    margin: 10px;
+    font-size: 12px;
+    font-family: 'Poppins';
+
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+
+}
+
+.infoButton:hover {
+    border: 2px solid #0429FA;
+}

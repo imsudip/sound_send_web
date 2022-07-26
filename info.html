@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@2/dist/zero-md.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=PT Mono' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <title>SoundSend Info</title>
+    <style>
+        .backbutton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 50px;
+            padding: 10px 10px;
+            margin: 10px;
+
+            font-family: 'Poppins';
+            cursor: pointer;
+            height: 60px;
+            /* width: 60px; */
+        }
+
+        .infoButton:hover {
+            border: 2px solid #0429FA;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="text-gray-600 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col flex-row items-center">
+
+            <a
+                class="flex order-first  title-font font-medium items-center text-gray-900 lg:items-center  mb-4 md:mb-0">
+
+                <span class="ml-3 text-xl"
+                    style="font-family: Inconsolata; color: #0429FA; font-weight: bolder; font-size: 52px;">SoundSend.</span>
+            </a>
+            <div class="py-2"></div>
+            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Share your Files using sound</p>
+        </div>
+    </header>
+    <div class="backbutton">
+        <a href="index.html">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Back to Home
+            </button>
+        </a>
+    </div>
+    <div style="width:70%; margin:10px auto;" id="mdcontainer">
+
+    </div>
+</body>
+<script>
+    var mdText = ""
+    // // get readme.md from /README.md
+    // fetch('/README.md')
+    //     .then(response => response.text())
+    //     .then(text => {
+    //         console.log(text)
+    //         mdText = text
+
+    //     })
+
+    window.onload = function () {
+        md = document.createElement("zero-md")
+        md.setAttribute("src", "https://raw.githubusercontent.com/imsudip/sound_send_web/main/README.md")
+        // md.setAttribute("no-shadow", "")
+        document.getElementById("mdcontainer").append(md)
+    }
+</script>
+
+</html>
