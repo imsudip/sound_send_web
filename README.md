@@ -3,7 +3,7 @@
 
 > Visit the web app at [soundsend.ml](https://www.soundsend.ml/)
 
-## Share your Files using sound
+### Share your Files using sound
 
 SoundSend is a web based application that allows you to send and receive files to and from nearby devices through the help of sound waves.
 
@@ -17,7 +17,7 @@ This library is used only to generate and analyze the RAW waveforms that are pla
 > For more Details visit the Library itself
 > [ggwave](https://github.com/ggerganov/ggwave)
 # How the File Transmission works
-Since the bandwidth/Data transmission rate through sound is capped at 8-16 bytes/sec depending on the protocol parameters. We can't use sound only to transfer the whole file. Instead the file is first uploaded to a anonymous cloud storage and then get the minimal encoded data (In our case the FileId and the File Name) that to be transferred between decives. 
+Since the bandwidth/Data transmission rate through sound is capped at 8-16 bytes/sec depending on the protocol parameters. So for transmitting a larger file using only sound is quite impossible and painstaking slow. Instead the file is first uploaded to a anonymous cloud storage and then get the minimal encoded data (In our case the FileId and the File Name) that to be transferred between decives. 
 
 We used [anonfiles](https://anonfiles.com/) for that which provides us with a REST API interface to upload the file.After uploading the file we fetch the file-id of the uploaded file and and filename and broadcast to nearby devices using sound. Upon receiving the data from the sender we do some processing to get the direct download URL of the file.
 
