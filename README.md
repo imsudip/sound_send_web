@@ -1,14 +1,25 @@
+![](https://raw.githubusercontent.com/imsudip/sound_send_web/main/images/title.png)
 
 # SoundSend.
 
-> Visit the web app at [soundsend.ml](https://www.soundsend.ml/)
-
 ### Share your Files using sound
+
+Visit the web app at [soundsend.ml](https://www.soundsend.ml/)
 
 SoundSend is a web based application that allows you to send and receive files to and from nearby devices through the help of sound waves.
 
-![enter image description here](https://raw.githubusercontent.com/imsudip/sound_send_web/main/images/screengrab.png)
-# How it  works
+<!-- Badges -->
+
+[![pages-build-deployment](https://github.com/imsudip/sound_send_web/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/imsudip/sound_send_web/actions/workflows/pages/pages-build-deployment)
+
+### Don't forget to :star: the repo
+
+[![GitHub stars](https://img.shields.io/github/stars/imsudip/wikiphilosophy.svg?style=for-the-badge&label=Star)](https://github.com//imsudip/wikiphilosophy) ![GitHub forks](https://img.shields.io/github/forks/imsudip/wikiphilosophy.svg?style=for-the-badge&label=Forks)
+
+![screenshot](https://raw.githubusercontent.com/imsudip/sound_send_web/main/images/screengrab.png)
+
+# How it works
+
 The Functionality is based on a Open Source Library [ggwave](https://github.com/ggerganov/ggwave)
 This library allows you to communicate small amounts of data between air-gapped devices using sound. It implements a simple FSK-based transmission protocol that can be easily integrated in various projects. The bandwidth rate is between 8-16 bytes/sec depending on the protocol parameters. Error correction codes (ECC) are used to improve demodulation robustness.
 
@@ -16,12 +27,15 @@ This library is used only to generate and analyze the RAW waveforms that are pla
 
 > For more Details visit the Library itself
 > [ggwave](https://github.com/ggerganov/ggwave)
+
 # How the File Transmission works
-Since the bandwidth/Data transmission rate through sound is capped at 8-16 bytes/sec depending on the protocol parameters. So for transmitting a larger file using only sound is quite impossible and painstaking slow. Instead the file is first uploaded to a anonymous cloud storage and then get the minimal encoded data (In our case the FileId and the File Name) that to be transferred between decives. 
+
+Since the bandwidth/Data transmission rate through sound is capped at 8-16 bytes/sec depending on the protocol parameters. So for transmitting a larger file using only sound is quite impossible and painstaking slow. Instead the file is first uploaded to a anonymous cloud storage and then get the minimal encoded data (In our case the FileId and the File Name) that to be transferred between decives.
 
 We used [anonfiles](https://anonfiles.com/) for that which provides us with a REST API interface to upload the file.After uploading the file we fetch the file-id of the uploaded file and and filename and broadcast to nearby devices using sound. Upon receiving the data from the sender we do some processing to get the direct download URL of the file.
 
 No user data is transferred during the whole process which makes it more seamless.
+
 ## Technical details
 
 Below is a short summary of the modulation and demodulation algorithm used in `ggwave` for encoding and decoding data into sound.
@@ -49,5 +63,27 @@ Beginning and ending of the transmission are marked with special sound markers .
 
 Reed-Solomon decoding is finally performed to obtain the original data.
 
+## Building from Source
 
+1. Clone the repository
 
+   ```
+   git clone https://github.com/imsudip/sound_send_web.git
+   cd sound_send_web
+
+   ```
+
+2. Open a web server in the root directory of the project
+   > You can use any web server of your choice. I personally use Live Server extension for VS Code.
+   > [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+3. Open the web app in your browser
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE.MD) file for details
