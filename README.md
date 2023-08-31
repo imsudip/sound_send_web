@@ -5,6 +5,7 @@
 ### Share your Files using sound
 
 Visit the web app at [soundsend.ml](https://www.soundsend.ml/)
+[alt website](https://imsudip.github.io/sound_send_web/)
 
 SoundSend is a web based application that allows you to send and receive files to and from nearby devices through the help of sound waves.
 
